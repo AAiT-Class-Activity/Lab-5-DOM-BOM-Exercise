@@ -14,6 +14,7 @@ const reloadIcon = document.querySelector(".fa"); // the reload button at the to
 
 // Add new Task Function definition
 function addNewTask(e) {
+  const dateID = Date.now();
   if (taskInput.value == "") {
     // alert("Enter New Task"); removed
     taskInput.style.borderColor = "red";
@@ -30,12 +31,16 @@ function addNewTask(e) {
   // Add class and the x marker for a
   link.className = "delete-item secondary-content";
   link.innerHTML = '<i class="fa fa-remove"></i>';
+  const dateDiv = document.createElement("div");
+  dateDiv.className = "dateDiv";
+  dateDiv.style.display = "none";
+  dateDiv.textContent = dateID;
+  li.appendChild(dateDiv);
   // Append link to li
   li.appendChild(link);
   // Append to ul
   taskList.appendChild(li);
   taskInput.value = "";
-  const dateId 
 
   // alert("Add New Task ..."); removed
   e.preventDefault(); // Disable from submission
@@ -57,13 +62,13 @@ function filterTasks(e) {
   // console.log("Task Filter ...");
   const itemList = document.querySelectorAll(".collection-item");
   if (filter.value == "") {
-    itemList.forEach(function (member, index) {
+    itemList.forEach(function (member) {
       member.style.display = "block";
     });
   } else {
     const searchedItem = filter.value;
     itemList.forEach(function (member, index) {
-      if (searchedItem == member.textContent) {
+      if (searchedItem == member.firstChild.textContent) {
         member.style.display = "block";
       } else {
         member.style.display = "none";
@@ -117,3 +122,51 @@ document.getElementById("buttons").addEventListener("click", function (e) {
     console.log("click");
   }
 });
+
+// sorting button
+$(".dropdown-trigger").dropdown();
+const ascendingBtn = document.querySelector(".ascending-btn");
+const descendingBtn = document.querySelector(".descending-btn");
+const collectionSorted = document.querySelector(".collection-sorted");
+// ascending sorting
+function ascendingSort() {
+  const unorderedList = document.querySelectorAll(".collection-item");
+  var orderingArray = new Array();
+  const currentTime = Date.now();
+  for (let i = 0; i < unorderedList.length; i++) {
+    listItem = unorderedList[i].querySelector(".dateDiv");
+    taskListTime = listItem.textContent;
+    let differenceTime = currentTime - taskListTime;
+    orderingArray[i] = [differenceTime, i];
+  }
+  orderingArray.sort();
+  for (let i = 0; i < unorderedList.length; i++) {
+    collectionSorted.appendChild(unorderedList[orderingArray[i][1]]);
+  }
+  for (let i = 0; i < unorderedList.length; i++) {
+    taskList.appendChild(unorderedList[orderingArray[i][1]]);
+  }
+}
+// descending sorting
+function descendingSort() {
+  const unorderedList = document.querySelectorAll(".collection-item");
+  var orderingArray = new Array();
+  const currentTime = Date.now();
+  for (let i = 0; i < unorderedList.length; i++) {
+    listItem = unorderedList[i].querySelector(".dateDiv");
+    taskListTime = listItem.textContent;
+    let differenceTime = currentTime - taskListTime;
+    orderingArray[i] = [differenceTime, i];
+  }
+  orderingArray.sort();
+  orderingArray.reverse();
+  for (let i = 0; i < unorderedList.length; i++) {
+    collectionSorted.appendChild(unorderedList[orderingArray[i][1]]);
+  }
+  for (let i = 0; i < unorderedList.length; i++) {
+    taskList.appendChild(unorderedList[orderingArray[i][1]]);
+  }
+}
+
+ascendingBtn.addEventListener("click", ascendingSort);
+descendingBtn.addEventListener("click", descendingSort);
