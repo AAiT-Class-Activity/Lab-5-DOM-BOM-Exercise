@@ -118,3 +118,97 @@ sevenBtn.addEventListener("click", addNumberSeven);
 eightBtn.addEventListener("click", addNumberEight);
 nineBtn.addEventListener("click", addNumberNine);
 zeroBtn.addEventListener("click", addNumberZero);
+
+function clearInput() {
+  number.textContent = "0";
+  firstNumber = 0;
+  operationSettled = "";
+}
+clearBtn.addEventListener("click", clearInput);
+
+// operation button click function
+function plusButtonClick() {
+  operation = "add";
+  calculator();
+}
+function minusButtonClick() {
+  operation = "minus";
+  calculator();
+}
+function timesButtonClick() {
+  operation = "times";
+  calculator();
+}
+function divideButtonClick() {
+  operation = "divide";
+  calculator();
+}
+function negativeButtonClick() {
+  operation = "negative";
+  calculator();
+}
+function percentButtonClick() {
+  operation = "percent";
+  calculator();
+}
+function equalButtonClick() {
+  calculator();
+  operationSettled = "";
+}
+
+// Operation input function
+function additionOperation() {
+  firstNumber += parseInt(number.textContent);
+}
+function subtractionOperation() {
+  firstNumber -= parseInt(number.textContent);
+}
+function multiplicationOperation() {
+  firstNumber *= parseInt(number.textContent);
+}
+function divisionOperation() {
+  if (number.textContent == "0") {
+    firstNumber = "Error";
+  } else {
+    firstNumber /= parseInt(number.textContent);
+  }
+}
+function negativeOperation() {
+  firstNumber *= -1;
+}
+function percentOperation() {
+  firstNumber /= 100;
+}
+// calculator function
+function calculator() {
+  operatorActive = true;
+  if (operationSettled == "") {
+    operationSettled = operation;
+    firstNumber = parseInt(number.textContent);
+    if (operationSettled == "negative") {
+      negativeOperation();
+    } else if (operationSettled == "percent") {
+      percentOperation();
+    }
+  } else {
+    if (operationSettled == "add") {
+      additionOperation();
+    } else if (operationSettled == "minus") {
+      subtractionOperation();
+    } else if (operationSettled == "times") {
+      multiplicationOperation();
+    } else if (operationSettled == "divide") {
+      divisionOperation();
+    }
+    operationSettled = operation;
+  }
+  number.textContent = firstNumber;
+}
+
+plusBtn.addEventListener("click", plusButtonClick);
+minusBtn.addEventListener("click", minusButtonClick);
+timesBtn.addEventListener("click", timesButtonClick);
+divideBtn.addEventListener("click", divideButtonClick);
+equalsBtn.addEventListener("click", equalButtonClick);
+negativeBtn.addEventListener("click", negativeButtonClick);
+percentBtn.addEventListener("click", percentButtonClick);
