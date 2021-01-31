@@ -5,6 +5,7 @@
   border-radius: 50px;
   margin: 0;
   width: 125.8px;
+  text-align: left;
 }
 
 .btn-large {
@@ -18,4 +19,26 @@
 .input-number {
   color: white;
   font-size: 55px;
+}
+
+.special-btn {
+  background-color: #e0e0e0;
+  color: black;
+}
+.special-btn:focus {
+  background-color: #ffffff;
+}
+.number-btn {
+  background-color: #616161;
+}
+.operator-btn {
+  background-color: #ff9100;
+}
+.operator-btn:focus {
+  background-color: #ffffff;
+  color: #ff9100;
+}
+.equal-btn:focus {
+  background-color: #ff9100;
+  color: #ffffff;
 }
