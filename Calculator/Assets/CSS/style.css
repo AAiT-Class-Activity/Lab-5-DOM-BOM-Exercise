@@ -1,0 +1,21 @@
+.header {
+  padding-bottom: 0;
+}
+.btn-0 {
+  border-radius: 50px;
+  margin: 0;
+  width: 125.8px;
+}
+
+.btn-large {
+  margin: 5px;
+  font-size: 25px;
+  padding-left: 21px;
+}
+.row {
+  margin-bottom: 5px;
+}
+.input-number {
+  color: white;
+  font-size: 55px;
+}
